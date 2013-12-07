@@ -1,104 +1,104 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
+  <head>
 
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-		<title>Lychee</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Photos</title>
 
-		<meta name="author" content="Tobias Reich, Philipp Maurer">
-		<meta name="keywords" content="">
-		<meta name="description" content="">
+    <meta name="author" content="Tobias Reich, Philipp Maurer">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
 
-		<link type="text/css" rel="stylesheet" href="css/animations.css">
-		<link type="text/css" rel="stylesheet" href="css/font-awesome.css">
-		<link type="text/css" rel="stylesheet" href="css/style.css">
-		<link rel="shortcut icon" href="img/favicon.png">
+    <link type="text/css" rel="stylesheet" href="css/animations.css">
+    <link type="text/css" rel="stylesheet" href="css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/favicon.png">
 
-		<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon.png">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black" >
-		<meta name="viewport" content="user-scalable=no, initial-scale=1">
-		<meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" >
+    <meta name="viewport" content="user-scalable=no, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-	</head>
-	<body>
+  </head>
+  <body>
 
-	<!-- Loading -->
-	<div id="loading"></div>
+  <!-- Loading -->
+  <div id="loading"></div>
 
-	<!-- Header -->
-	<header>
+  <!-- Header -->
+  <header>
 
-		<!-- Buttons -->
-		<div id="tools_albums">
-			<a class="button" id="button_signout">Sign Out</a>
-			<a class="button" id="button_signin">Sign In</a>
-			<a class="button icon icon-plus-sign button_add"></a>
-			<a class="button_divider"></a>
-			<input id="search" type="text" name="search" placeholder="Search …">
-		</div>
-		<div id="tools_album">
-			<a class="button" id="button_back_home">Back</a>
-			<a class="button icon icon-plus-sign button_add"></a>
-			<a class="button_divider"></a>
-			<div class="tools" id="button_trash_album" title="Delete Album"><a class="icon-trash"></a></div>
-			<div class="tools" id="button_archive" title="Download Album"><a class="icon-circle-arrow-down"></a></div>
-			<div class="tools" id="button_edit_album" title="Edit Title"><a class="icon-edit"></a></div>
-			<div class="tools" id="button_share_album" title="Share Album"><a class="icon-share"></a></div>
-		</div>
-		<div id="tools_photo">
-			<a class="button" id="button_back">Back</a>
-			<div class="tools" id="button_trash" title="Delete"><a class="icon-trash"></a></div>
-			<div class="tools" id="button_move" title="Move to Album"><a class="icon-folder-open"></a></div>
-			<div class="tools" id="button_edit" title="Edit Title"><a class="icon-edit"></a></div>
-			<a class="button_divider less"></a>
-			<div class="tools" id="button_download" title="Full Photo"><a class="icon-resize-full"></a></div>
-			<div class="tools" id="button_info" title="Show Info"><a class="icon-info-sign"></a></div>
-			<a class="button_divider less"></a>
-			<div class="tools" id="button_share" title="Share Photo"><a class="icon-share"></a></div>
-			<div class="tools" id="button_star" title="Star Photo"><a class="icon-star-empty"></a></div>
-		</div>
+    <!-- Buttons -->
+    <div id="tools_albums">
+      <a class="button" id="button_signout">Sign Out</a>
+      <a class="button" id="button_signin">Sign In</a>
+      <a class="button icon icon-plus-sign button_add"></a>
+      <a class="button_divider"></a>
+      <input id="search" type="text" name="search" placeholder="Search …">
+    </div>
+    <div id="tools_album">
+      <a class="button" id="button_back_home">Back</a>
+      <a class="button icon icon-plus-sign button_add"></a>
+      <a class="button_divider"></a>
+      <div class="tools" id="button_trash_album" title="Delete Album"><a class="icon-trash"></a></div>
+      <div class="tools" id="button_archive" title="Download Album"><a class="icon-circle-arrow-down"></a></div>
+      <div class="tools" id="button_edit_album" title="Edit Title"><a class="icon-edit"></a></div>
+      <div class="tools" id="button_share_album" title="Share Album"><a class="icon-share"></a></div>
+    </div>
+    <div id="tools_photo">
+      <a class="button" id="button_back">Back</a>
+      <div class="tools" id="button_trash" title="Delete"><a class="icon-trash"></a></div>
+      <div class="tools" id="button_move" title="Move to Album"><a class="icon-folder-open"></a></div>
+      <div class="tools" id="button_edit" title="Edit Title"><a class="icon-edit"></a></div>
+      <a class="button_divider less"></a>
+      <div class="tools" id="button_download" title="Full Photo"><a class="icon-resize-full"></a></div>
+      <div class="tools" id="button_info" title="Show Info"><a class="icon-info-sign"></a></div>
+      <a class="button_divider less"></a>
+      <div class="tools" id="button_share" title="Share Photo"><a class="icon-share"></a></div>
+      <div class="tools" id="button_star" title="Star Photo"><a class="icon-star-empty"></a></div>
+    </div>
 
-		<a id="title"></a>
+    <a id="title"></a>
 
-	</header>
+  </header>
 
-	<!-- Content -->
-	<div id="content"></div>
+  <!-- Content -->
+  <div id="content"></div>
 
-	<!-- ImageView -->
-	<div id="imageview"></div>
+  <!-- ImageView -->
+  <div id="imageview"></div>
 
-	<!-- Infobox -->
-	<div id="infobox"></div>
+  <!-- Infobox -->
+  <div id="infobox"></div>
 
-	<!-- Upload -->
-	<div id="upload">
-		<input id="upload_files" type="file" name="fileElem[]" multiple="true" accept="image/*">
-		<div id="auswahl"></div>
-		<input id="upload_button" type="button" onclick="sendFiles();" value="Upload">
-	</div>
+  <!-- Upload -->
+  <div id="upload">
+    <input id="upload_files" type="file" name="fileElem[]" multiple="true" accept="image/*">
+    <div id="auswahl"></div>
+    <input id="upload_button" type="button" onclick="sendFiles();" value="Upload">
+  </div>
 
-	<!-- JS -->
-	<script defer type="text/javascript" src="js/frameworks.js"></script>
+  <!-- JS -->
+  <script defer type="text/javascript" src="js/frameworks.js"></script>
 
-	<!-- Development
-	<script defer type="text/javascript" src="js/modules/lychee.js"></script>
-	<script defer type="text/javascript" src="js/modules/build.js"></script>
-	<script defer type="text/javascript" src="js/modules/view.js"></script>
-	<script defer type="text/javascript" src="js/modules/password.js"></script>
-	<script defer type="text/javascript" src="js/modules/modal.js"></script>
-	<script defer type="text/javascript" src="js/modules/album.js"></script>
-	<script defer type="text/javascript" src="js/modules/albums.js"></script>
-	<script defer type="text/javascript" src="js/modules/photo.js"></script>
-	<script defer type="text/javascript" src="js/modules/visible.js"></script>
-	<script defer type="text/javascript" src="js/modules/loadingBar.js"></script>
-	<script defer type="text/javascript" src="js/modules/contextMenu.js"></script>
-	<script defer type="text/javascript" src="js/modules/search.js"></script> -->
+  <!-- Development
+  <script defer type="text/javascript" src="js/modules/lychee.js"></script>
+  <script defer type="text/javascript" src="js/modules/build.js"></script>
+  <script defer type="text/javascript" src="js/modules/view.js"></script>
+  <script defer type="text/javascript" src="js/modules/password.js"></script>
+  <script defer type="text/javascript" src="js/modules/modal.js"></script>
+  <script defer type="text/javascript" src="js/modules/album.js"></script>
+  <script defer type="text/javascript" src="js/modules/albums.js"></script>
+  <script defer type="text/javascript" src="js/modules/photo.js"></script>
+  <script defer type="text/javascript" src="js/modules/visible.js"></script>
+  <script defer type="text/javascript" src="js/modules/loadingBar.js"></script>
+  <script defer type="text/javascript" src="js/modules/contextMenu.js"></script>
+  <script defer type="text/javascript" src="js/modules/search.js"></script> -->
 
-	<!-- Production -->
-	<script defer type="text/javascript" src="js/functions.js"></script>
-	
-	<script defer type="text/javascript" src="js/main.js"></script>
+  <!-- Production -->
+  <script defer type="text/javascript" src="js/functions.js"></script>
 
-	</body>
+  <script defer type="text/javascript" src="js/main.js"></script>
+
+  </body>
 </html>

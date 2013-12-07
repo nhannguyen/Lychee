@@ -10,276 +10,276 @@
 
 var lychee = {
 
-	init: function() {
+  init: function() {
 
-		this.version = "1.3.2";
-		this.api_path = "php/api.php";
-		this.update_path = "http://lychee.electerious.com/version/index.php";
-		this.updateURL = "https://github.com/electerious/Lychee";
+    this.version = "1.3.2";
+    this.api_path = "php/api.php";
+    this.update_path = "http://lychee.electerious.com/version/index.php";
+    this.updateURL = "https://github.com/electerious/Lychee";
 
-		this.upload_path_thumb = "uploads/thumb/";
-		this.upload_path_big = "uploads/big/";
+    this.upload_path_thumb = "uploads/thumb/";
+    this.upload_path_big = "uploads/big/";
 
-		this.publicMode = false;
-		this.viewMode = false;
+    this.publicMode = false;
+    this.viewMode = false;
 
-		this.checkForUpdates = false;
+    this.checkForUpdates = false;
 
-		this.dropbox = false;
+    this.dropbox = false;
 
-		this.loadingBar = $("#loading");
-		this.header = $("header");
-		this.content = $("#content");
-		this.imageview = $("#imageview");
-		this.infobox = $("#infobox");
+    this.loadingBar = $("#loading");
+    this.header = $("header");
+    this.content = $("#content");
+    this.imageview = $("#imageview");
+    this.infobox = $("#infobox");
 
-	},
+  },
 
-	run: function() {
+  run: function() {
 
-		lychee.api("init", "json", function(data) {
-			lychee.checkForUpdates = data.config.checkForUpdates;
-			if (!data.loggedIn) lychee.setMode("public");
-			$(window).bind("popstate", lychee.load);
-			lychee.load();
-		});
+    lychee.api("init", "json", function(data) {
+      lychee.checkForUpdates = data.config.checkForUpdates;
+      if (!data.loggedIn) lychee.setMode("public");
+      $(window).bind("popstate", lychee.load);
+      lychee.load();
+    });
 
-	},
+  },
 
-	api: function(params, type, callback, loading) {
+  api: function(params, type, callback, loading) {
 
-		if (loading==undefined) loadingBar.show();
+    if (loading==undefined) loadingBar.show();
 
-		$.ajax({
-			type: "POST",
-			url: lychee.api_path,
-			data: "function=" + params,
-			dataType: type,
-			success:
-				function(data) {
-					setTimeout(function() { loadingBar.hide() }, 100);
-					callback(data);
-				},
-			error: lychee.error
-		});
+    $.ajax({
+      type: "POST",
+      url: lychee.api_path,
+      data: "function=" + params,
+      dataType: type,
+      success:
+        function(data) {
+          setTimeout(function() { loadingBar.hide() }, 100);
+          callback(data);
+        },
+      error: lychee.error
+    });
 
-	},
+  },
 
-	login: function() {
+  login: function() {
 
-		var user = $("input#username").val(),
-			password = hex_md5($("input#password").val()),
-			params;
+    var user = $("input#username").val(),
+      password = hex_md5($("input#password").val()),
+      params;
 
-		params = "login&user=" + user + "&password=" + password;
-		lychee.api(params, "text", function(data) {
-			if (data) {
-				localStorage.setItem("username", user);
-				window.location.reload();
-			} else {
-				$("#password").val("").addClass("error");
-				$(".message .button.active").removeClass("pressed");
-			}
-		});
+    params = "login&user=" + user + "&password=" + password;
+    lychee.api(params, "text", function(data) {
+      if (data) {
+        localStorage.setItem("username", user);
+        window.location.reload();
+      } else {
+        $("#password").val("").addClass("error");
+        $(".message .button.active").removeClass("pressed");
+      }
+    });
 
-	},
+  },
 
-	loginDialog: function() {
+  loginDialog: function() {
 
-		$("body").append(build.signInModal());
-		$("#username").focus();
-		if (localStorage) {
-			local_username = localStorage.getItem("username");
-			if (local_username!=null) {
-				if (local_username.length>0) $("#username").val(local_username);
-				$("#password").focus();
-			}
-		}
-		if (lychee.checkForUpdates) lychee.getUpdate();
+    $("body").append(build.signInModal());
+    $("#username").focus();
+    if (localStorage) {
+      local_username = localStorage.getItem("username");
+      if (local_username!=null) {
+        if (local_username.length>0) $("#username").val(local_username);
+        $("#password").focus();
+      }
+    }
+    if (lychee.checkForUpdates) lychee.getUpdate();
 
-	},
+  },
 
-	logout: function() {
+  logout: function() {
 
-		lychee.api("logout", "text", function(data) {
-			window.location.reload();
-		});
+    lychee.api("logout", "text", function(data) {
+      window.location.reload();
+    });
 
-	},
+  },
 
-	goto: function(url) {
+  goto: function(url) {
 
-		if (url==undefined) url = "";
-		document.location.hash = url;
+    if (url==undefined) url = "";
+    document.location.hash = url;
 
-	},
+  },
 
-	load: function() {
+  load: function() {
 
-		var albumID = "",
-			photoID = "",
-			hash = document.location.hash.replace("#", "");
+    var albumID = "",
+      photoID = "",
+      hash = document.location.hash.replace("#", "");
 
-		contextMenu.close();
+    contextMenu.close();
 
-		if (hash.indexOf("a")!=-1) albumID = hash.split("p")[0].replace("a", "");
-		if (hash.indexOf("p")!=-1) photoID = hash.split("p")[1];
+    if (hash.indexOf("a")!=-1) albumID = hash.split("p")[0].replace("a", "");
+    if (hash.indexOf("p")!=-1) photoID = hash.split("p")[1];
 
-		if (albumID&&photoID) {
+    if (albumID&&photoID) {
 
-			// Trash data
-			albums.json = null;
-			photo.json = null;
+      // Trash data
+      albums.json = null;
+      photo.json = null;
 
-			// Show Photo
-			if (lychee.content.html()==""||($("#search").length&&$("#search").val().length!=0)) {
-				lychee.content.hide();
-				album.load(albumID, true);
-			}
-			if (!visible.photo()) view.photo.show();
-			photo.load(photoID, albumID);
+      // Show Photo
+      if (lychee.content.html()==""||($("#search").length&&$("#search").val().length!=0)) {
+        lychee.content.hide();
+        album.load(albumID, true);
+      }
+      if (!visible.photo()) view.photo.show();
+      photo.load(photoID, albumID);
 
-		} else if (albumID) {
+    } else if (albumID) {
 
-			// Trash data
-			albums.json = null;
-			photo.json = null;
+      // Trash data
+      albums.json = null;
+      photo.json = null;
 
-			// Show Album
-			if (visible.photo()) view.photo.hide();
-			if (album.json&&albumID==album.json.id) view.album.title();
-			else album.load(albumID);
+      // Show Album
+      if (visible.photo()) view.photo.hide();
+      if (album.json&&albumID==album.json.id) view.album.title();
+      else album.load(albumID);
 
-		} else {
+    } else {
 
-			// Trash data
-			albums.json = null;
-			album.json = null;
-			photo.json = null;
-			search.code = "";
+      // Trash data
+      albums.json = null;
+      album.json = null;
+      photo.json = null;
+      search.code = "";
 
-			// Show Albums
-			if (visible.photo()) view.photo.hide();
-			albums.load();
+      // Show Albums
+      if (visible.photo()) view.photo.hide();
+      albums.load();
 
-		}
+    }
 
-	},
+  },
 
-	getUpdate: function() {
+  getUpdate: function() {
 
-		$.ajax({
-			url: lychee.update_path,
-			success: function(data) { if (data!=lychee.version) $("#version span").show(); }
-		});
+    $.ajax({
+      url: lychee.update_path,
+      success: function(data) { if (data!=lychee.version) $("#version span").show(); }
+    });
 
-	},
+  },
 
-	setTitle: function(title, count, editable) {
+  setTitle: function(title, count, editable) {
 
-		if (title=="Albums") document.title = "Lychee";
-		else document.title = "Lychee - " + title;
+    if (title=="Albums") document.title = "Photos";
+    else document.title = "Photos - " + title;
 
-		if (count) title += "<span> - " + count + " photos</span>";
-		if (editable) $("#title").addClass("editable");
-		else $("#title").removeClass("editable");
+    if (count) title += "<span> - " + count + " photos</span>";
+    if (editable) $("#title").addClass("editable");
+    else $("#title").removeClass("editable");
 
-		$("#title").html(title);
+    $("#title").html(title);
 
-	},
+  },
 
-	setMode: function(mode) {
+  setMode: function(mode) {
 
-		$("#button_signout, #search, #button_trash_album, #button_share_album, #button_edit_album, .button_add, #button_archive, .button_divider").remove();
-		$("#button_trash, #button_move, #button_edit, #button_share, #button_star").remove();
+    $("#button_signout, #search, #button_trash_album, #button_share_album, #button_edit_album, .button_add, #button_archive, .button_divider").remove();
+    $("#button_trash, #button_move, #button_edit, #button_share, #button_star").remove();
 
-		$(document)
-			.on("mouseenter", "#title.editable", function() { $(this).removeClass("editable") })
-			.off("click", "#title.editable")
-			.off("touchend", "#title.editable")
-			.off("contextmenu", ".photo")
-			.off("contextmenu", ".album")
-			.off("drop");
+    $(document)
+      .on("mouseenter", "#title.editable", function() { $(this).removeClass("editable") })
+      .off("click", "#title.editable")
+      .off("touchend", "#title.editable")
+      .off("contextmenu", ".photo")
+      .off("contextmenu", ".album")
+      .off("drop");
 
-		Mousetrap
-			.unbind('n')
-			.unbind('u')
-			.unbind('s')
-			.unbind('backspace');
+    Mousetrap
+      .unbind('n')
+      .unbind('u')
+      .unbind('s')
+      .unbind('backspace');
 
-		if (mode=="public") {
+    if (mode=="public") {
 
-			$("#button_signin").show();
-			lychee.publicMode = true;
+      $("#button_signin").show();
+      lychee.publicMode = true;
 
-		} else if (mode=="view") {
+    } else if (mode=="view") {
 
-			Mousetrap.unbind('esc');
-			$("#button_back, a#next, a#previous").remove();
+      Mousetrap.unbind('esc');
+      $("#button_back, a#next, a#previous").remove();
 
-			lychee.publicMode = true;
-			lychee.viewMode = true;
+      lychee.publicMode = true;
+      lychee.viewMode = true;
 
-		}
+    }
 
-	},
+  },
 
-	animate: function(obj, animation) {
+  animate: function(obj, animation) {
 
-		var animations = [
-			["fadeIn", "fadeOut"],
-			["contentZoomIn", "contentZoomOut"]
-		];
+    var animations = [
+      ["fadeIn", "fadeOut"],
+      ["contentZoomIn", "contentZoomOut"]
+    ];
 
-		if (!obj.jQuery) obj = $(obj);
+    if (!obj.jQuery) obj = $(obj);
 
-		for (var i = 0; i < animations.length; i++) {
-			for (var x = 0; x < animations[i].length; x++) {
-				if (animations[i][x]==animation) {
-					obj.removeClass(animations[i][0] + " " + animations[i][1]).addClass(animation);
-					return true;
-				}
-			}
-		}
+    for (var i = 0; i < animations.length; i++) {
+      for (var x = 0; x < animations[i].length; x++) {
+        if (animations[i][x]==animation) {
+          obj.removeClass(animations[i][0] + " " + animations[i][1]).addClass(animation);
+          return true;
+        }
+      }
+    }
 
-		return false;
+    return false;
 
-	},
+  },
 
-	loadDropbox: function(callback) {
+  loadDropbox: function(callback) {
 
-		if (!lychee.dropbox) {
+    if (!lychee.dropbox) {
 
-			loadingBar.show();
+      loadingBar.show();
 
-			var g = document.createElement("script"),
-				s = document.getElementsByTagName("script")[0];
+      var g = document.createElement("script"),
+        s = document.getElementsByTagName("script")[0];
 
-			g.src = "https://www.dropbox.com/static/api/1/dropins.js";
-			g.id = "dropboxjs";
-			g.type = "text/javascript";
-			g.async = "true";
-			g.setAttribute("data-app-key", "iq7lioj9wu0ieqs");
-			g.onload = g.onreadystatechange = function() {
-				var rs = this.readyState;
-				if (rs&&rs!="complete"&&rs!="loaded") return;
-				lychee.dropbox = true;
-				loadingBar.hide();
-				callback();
-			};
-			s.parentNode.insertBefore(g, s);
+      g.src = "https://www.dropbox.com/static/api/1/dropins.js";
+      g.id = "dropboxjs";
+      g.type = "text/javascript";
+      g.async = "true";
+      g.setAttribute("data-app-key", "iq7lioj9wu0ieqs");
+      g.onload = g.onreadystatechange = function() {
+        var rs = this.readyState;
+        if (rs&&rs!="complete"&&rs!="loaded") return;
+        lychee.dropbox = true;
+        loadingBar.hide();
+        callback();
+      };
+      s.parentNode.insertBefore(g, s);
 
-		} else callback();
+    } else callback();
 
-	},
+  },
 
-	error: function(jqXHR, textStatus, errorThrown) {
+  error: function(jqXHR, textStatus, errorThrown) {
 
-		console.log(jqXHR);
-		console.log(textStatus);
-		console.log(errorThrown);
-		loadingBar.show("error", textStatus, errorThrown);
+    console.log(jqXHR);
+    console.log(textStatus);
+    console.log(errorThrown);
+    loadingBar.show("error", textStatus, errorThrown);
 
-	}
+  }
 
 }

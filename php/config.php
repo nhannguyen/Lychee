@@ -12,16 +12,16 @@ if(!defined('LYCHEE')) die('Direct access is not allowed!');
 // Database configurations
 $db = 'lychee'; //Database name
 $dbUser = 'lychee'; //Username of the database
-$dbPassword = 'lychee_passwd'; //Password of the Database
+$dbPassword = 'nuoPh5rohtha'; //Password of the Database
 $dbHost = 'localhost'; //Host of the Database
 
 // Admin Login
-$user = 'lychee'; //Admin Username
-$password = '1234'; //Admin Password
+$user = 'nhannguyen'; //Admin Username
+$password = 'S1ng@por3%'; //Admin Password
 
 // Additional settings
 $checkForUpdates = true;
 $thumbQuality = 95; //Quality of the Thumbs (0-100). Default: 95
-$sorting = 'DESC'; //ASC or DESC sorting of albums and photos
+$sorting = 'ASC'; //ASC or DESC sorting of albums and photos
 
 ?>
