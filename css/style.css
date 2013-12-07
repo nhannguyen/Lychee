@@ -262,7 +262,7 @@ header {
 	#title {
 		position: absolute;
 		margin: 0px 30%;
-		width: 40%;
+		width: 25%;
 		padding: 11px 0px;
 		color: #fff;
 		font-size: 16px;
@@ -1343,7 +1343,7 @@ header {
 /* Screen behavior -------------------------------------------------*/
 @media only screen and (max-width: 900px) {
 
-	#title { margin: 0px 20%; width: 40%; }
+	#title { margin: 0px 20%; width: 23%; }
 	#title.view { margin: 11px 20% 0px 20%; width: 60%;	}
 	#title span { display: none; }
 
