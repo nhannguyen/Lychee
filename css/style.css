@@ -282,7 +282,6 @@ header {
 	/* Button ------------------------------------------------*/
 	header .button {
 		float: left;
-		position: absolute;
 		padding: 7px 10px 8px 10px;
 		margin: 6px 0px 0px 8px;
 		font-size: 12px;
