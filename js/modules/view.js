@@ -306,7 +306,7 @@ view = {
 			view.header.mode("album");
 
 			// Make body scrollable
-			$("body").css("overflow", "scroll");
+			$("body").css("overflow", "auto");
 
 			// Hide Photo
 			lychee.animate(lychee.imageview, "fadeOut");
