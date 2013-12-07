@@ -12,12 +12,12 @@ if(!defined('LYCHEE')) die('Direct access is not allowed!');
 // Database configurations
 $db = 'lychee'; //Database name
 $dbUser = 'lychee'; //Username of the database
-$dbPassword = 'nuoPh5rohtha'; //Password of the Database
+$dbPassword = 'password'; //Password of the Database
 $dbHost = 'localhost'; //Host of the Database
 
 // Admin Login
-$user = 'nhannguyen'; //Admin Username
-$password = 'S1ng@por3%'; //Admin Password
+$user = 'admin'; //Admin Username
+$password = 'admin'; //Admin Password
 
 // Additional settings
 $checkForUpdates = true;
