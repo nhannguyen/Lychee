@@ -22,7 +22,7 @@ function openGraphHeader($photoID) {
 
 	$return  = '<!-- General Meta Data -->';
 	$return .= '<meta name="title" content="'.$row->title.'" />';
-	$return .= '<meta name="description" content="'.$row->description.' - via Lychee" />';
+	$return .= '<meta name="description" content="'.$row->description.'" />';
 	$return .= '<link rel="image_src"  type="image/jpeg" href="'.$picture.'" />';
 
 	$return .= '<!-- Twitter Meta Data -->';
