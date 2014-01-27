@@ -35,7 +35,7 @@ view = {
 
 		hide: function() {
 
-			if (visible.photo()&&!visible.infobox()) {
+			if (visible.photo()&&!visible.infobox()&&!visible.contextMenu()&&!visible.message()) {
 				clearTimeout($(window).data("timeout"));
 				$(window).data("timeout", setTimeout(function() {
 					lychee.imageview.addClass("full");
@@ -59,7 +59,7 @@ view = {
 		},
 
 		mode: function(mode) {
-
+			
 			var albumID = album.getID();
 
 			switch (mode) {
@@ -72,6 +72,7 @@ view = {
 					lychee.header.removeClass("view");
 					$("#tools_albums, #tools_photo").hide();
 					$("#tools_album").show();
+					album.json.content === false ? $("#button_archive").hide() : $("#button_archive").show();
 					if (albumID==="s"||albumID==="f") {
 						$("#button_info_album, #button_trash_album, #button_share_album").hide();
 					} else if (albumID==="0") {
@@ -154,7 +155,7 @@ view = {
 				if (smartData===""&&albumsData==="") $("body").append(build.no_content("picture"));
 				else lychee.content.html(smartData + albumsData);
 
-				$("img").retina();
+				$("img[data-type!='svg']").retina();
 
 			},
 
@@ -249,7 +250,7 @@ view = {
 				});
 				lychee.content.html(photosData);
 
-				$("img").retina();
+				$("img[data-type!='svg']").retina();
 
 			},
 

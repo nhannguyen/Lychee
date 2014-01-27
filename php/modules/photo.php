@@ -34,7 +34,7 @@ function getPhoto($photoID, $albumID) {
 
     	if ($return['album']!=0) {
 
-    		$result = $database->query("SELECT public FROM lychee_albums WHERE id = " . $return['album'] . ";");
+    		$result = $database->query("SELECT public FROM lychee_albums WHERE id = '" . $return['album'] . "';");
     		$return_album = $result->fetch_array();
     		if ($return_album['public']=="1") $return['public'] = "2";
 
@@ -161,6 +161,27 @@ function isPhotoPublic($photoID, $password) {
     	if ($iAP&&$cAP) return true;
     	else return false;
     }
+
+}
+
+function getPhotoArchive($photoID) {
+
+	global $database;
+
+	$result = $database->query("SELECT * FROM lychee_photos WHERE id = '$photoID';");
+	$row = $result->fetch_object();
+
+	$extension = array_reverse(explode('.', $row->url));
+
+	if ($row->title=='') $row->title = 'Untitled';
+
+	header("Content-Type: application/octet-stream");
+	header("Content-Disposition: attachment; filename=\"$row->title.$extension[0]\"");
+	header("Content-Length: " . filesize("../uploads/big/$row->url"));
+
+	readfile("../uploads/big/$row->url");
+
+	return true;
 
 }
 

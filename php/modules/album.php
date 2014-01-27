@@ -122,8 +122,9 @@ function getAlbum($albumID) {
 	    			$query = "SELECT id, title, sysdate, public, star, album, thumbUrl FROM lychee_photos WHERE public = 1 " . $settings['sorting'];
 	        		break;
 
-	    case 0:		$return['public'] = false;
+	    case "0":	$return['public'] = false;
 	    			$query = "SELECT id, title, sysdate, public, star, album, thumbUrl FROM lychee_photos WHERE album = 0 " . $settings['sorting'];
+					break;
 
 	    default:	$result = $database->query("SELECT * FROM lychee_albums WHERE id = '$albumID';");
 			    	$row = $result->fetch_object();
@@ -213,19 +214,15 @@ function setAlbumDescription($albumID, $description) {
 
 }
 
-function deleteAlbum($albumID, $delAll) {
+function deleteAlbum($albumID) {
 
 	global $database;
 
-    if ($delAll=="true") {
-        $result = $database->query("SELECT id FROM lychee_photos WHERE album = '$albumID';");
-        $error = false;
-        while($row =  $result->fetch_object()) {
-            if (!deletePhoto($row->id)) $error = true;
-        }
-    } else {
-        $result = $database->query("UPDATE lychee_photos SET album = '0' WHERE album = '$albumID';");
-        if (!$result) return false;
+	$error = false;
+
+    $result = $database->query("SELECT id FROM lychee_photos WHERE album = '$albumID';");
+    while($row =  $result->fetch_object()) {
+        if (!deletePhoto($row->id)) $error = true;
     }
 
     if ($albumID!=0) {
