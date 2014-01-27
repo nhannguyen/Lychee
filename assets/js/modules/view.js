@@ -59,7 +59,7 @@ view = {
 		},
 
 		mode: function(mode) {
-			
+
 			var albumID = album.getID();
 
 			switch (mode) {
@@ -356,7 +356,7 @@ view = {
 			view.header.mode("photo");
 
 			// Make body not scrollable
-			$("body").css("overflow", "hidden");
+			$("body").css("overflow", "auto");
 
 			// Fullscreen
 			$(document)

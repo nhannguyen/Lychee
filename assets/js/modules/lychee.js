@@ -216,8 +216,8 @@ var lychee = {
 
 	setTitle: function(title, editable) {
 
-		if (title==="Albums") document.title = "Lychee";
-		else document.title = "Lychee - " + title;
+		if (title==="Albums") document.title = "Photos";
+		else document.title = title;
 
 		if (editable) $("#title").addClass("editable");
 		else $("#title").removeClass("editable");

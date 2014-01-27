@@ -14,7 +14,7 @@ contextMenu = {
 		if (visible.contextMenu()) contextMenu.close();
 
 		$("body")
-			.css("overflow", "hidden")
+			.css("overflow", "auto")
 			.append(build.contextMenu(items));
 
 		if ((mouse_x+$(".contextmenu").outerWidth(true))>$("html").width()) orientation = "left";
@@ -199,7 +199,7 @@ contextMenu = {
 			function() { photo.share(photoID, 3) },
 			function() { window.open(photo.getDirectLink(),"_newtab") }
 		];
-		
+
 		link = photo.getViewLink(photoID);
 		if (photo.json.public==="2") link = location.href;
 
