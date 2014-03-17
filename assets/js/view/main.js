@@ -87,7 +87,7 @@ function loadPhotoInfo(photoID) {
 	$.ajax({type: "POST", url: api_path, data: params, dataType: "json", success: function(data) {
 
 		if (!data.title) data.title = "Untitled";
-		document.title = "Lychee - " + data.title;
+		document.title = "Photos - " + data.title;
 		headerTitle.html(data.title);
 
 		data.url = "uploads/big/" + data.url;
