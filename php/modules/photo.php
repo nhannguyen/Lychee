@@ -13,7 +13,7 @@ function getPhoto($photoID, $albumID) {
 
 	global $database;
 
-	$query	= "SELECT * FROM lychee_photos WHERE id = '$photoID';";
+	$query	= "SELECT * FROM lychee_photos WHERE id = '$photoID' LIMIT 1;";
 	$result = $database->query($query);
 	$return = $result->fetch_array();
 
@@ -35,6 +35,11 @@ function getPhoto($photoID, $albumID) {
 	}
 
 	unset($return['album_public']);
+
+	// Remove unused items
+	foreach ($return as $key => $value) {
+		if (is_int($key)) unset($return[$key]);
+	}
 
 	return $return;
 
